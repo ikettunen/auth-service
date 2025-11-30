@@ -16,24 +16,161 @@ app.use(cors({
 app.use(express.json());
 
 // Mock users (in a real app, this would be in a database)
+// Using existing staff IDs from staff-service Oracle database
 const mockUsers = [
+    // Doctors (Lääkäri)
     {
-        id: 'user_S0001',
-        email: 'anna.virtanen@nursinghome.com',
-        password: '$2b$10$example_hash_here', // Will be replaced with real hash
+        id: 'user_1003',
+        email: 'jukka.makinen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'doctor',
+        staffId: '1003',
+        firstName: 'Jukka',
+        lastName: 'Mäkinen'
+    },
+    {
+        id: 'user_1009',
+        email: 'timo.lehtonen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'doctor',
+        staffId: '1009',
+        firstName: 'Timo',
+        lastName: 'Lehtonen'
+    },
+    
+    // Nurses (Sairaanhoitaja)
+    {
+        id: 'user_1001',
+        email: 'anna.virtanen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
         role: 'nurse',
-        staffId: 'S0001',
+        staffId: '1001',
         firstName: 'Anna',
         lastName: 'Virtanen'
     },
     {
-        id: 'user_S0098',
-        email: 'zachariah.kiehn36@nursinghome.com',
-        password: '$2b$10$example_hash_here', // Will be replaced with real hash
+        id: 'user_1006',
+        email: 'sari.koskinen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'nurse',
+        staffId: '1006',
+        firstName: 'Sari',
+        lastName: 'Koskinen'
+    },
+    {
+        id: 'user_1013',
+        email: 'eero.laaksonen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'nurse',
+        staffId: '1013',
+        firstName: 'Eero',
+        lastName: 'Laaksonen'
+    },
+    
+    // Head Nurse (Osastonhoitaja)
+    {
+        id: 'user_1004',
+        email: 'maria.nieminen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'head_nurse',
+        staffId: '1004',
+        firstName: 'Maria',
+        lastName: 'Nieminen'
+    },
+    
+    // Care Assistants (Lähihoitaja)
+    {
+        id: 'user_1002',
+        email: 'liisa.korhonen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'care_assistant',
+        staffId: '1002',
+        firstName: 'Liisa',
+        lastName: 'Korhonen'
+    },
+    {
+        id: 'user_1007',
+        email: 'mikko.heikkinen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'care_assistant',
+        staffId: '1007',
+        firstName: 'Mikko',
+        lastName: 'Heikkinen'
+    },
+    {
+        id: 'user_1014',
+        email: 'pirjo.makela@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'care_assistant',
+        staffId: '1014',
+        firstName: 'Pirjo',
+        lastName: 'Mäkelä'
+    },
+    
+    // Physiotherapist (Fysioterapeutti)
+    {
+        id: 'user_1005',
+        email: 'pekka.laine@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'physiotherapist',
+        staffId: '1005',
+        firstName: 'Pekka',
+        lastName: 'Laine'
+    },
+    
+    // Psychologist (Psykologi)
+    {
+        id: 'user_1008',
+        email: 'kaisa.jarvinen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'psychologist',
+        staffId: '1008',
+        firstName: 'Kaisa',
+        lastName: 'Järvinen'
+    },
+    
+    // Social Worker (Sosiaalityöntekijä)
+    {
+        id: 'user_1010',
+        email: 'hanna.salo@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'social_worker',
+        staffId: '1010',
+        firstName: 'Hanna',
+        lastName: 'Salo'
+    },
+    
+    // Pharmacist (Proviisoori)
+    {
+        id: 'user_1011',
+        email: 'juha.rantanen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'pharmacist',
+        staffId: '1011',
+        firstName: 'Juha',
+        lastName: 'Rantanen'
+    },
+    
+    // Radiographer (Röntgenhoitaja)
+    {
+        id: 'user_1012',
+        email: 'maija.tuominen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'radiographer',
+        staffId: '1012',
+        firstName: 'Maija',
+        lastName: 'Tuominen'
+    },
+    
+    // Admin (for testing)
+    {
+        id: 'user_admin',
+        email: 'admin@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
         role: 'admin',
-        staffId: 'S0098',
-        firstName: 'Zachariah',
-        lastName: 'Kiehn'
+        staffId: 'ADMIN001',
+        firstName: 'Admin',
+        lastName: 'User'
     }
 ];
 
@@ -213,10 +350,34 @@ if (process.env.NODE_ENV !== 'test') {
     const port = process.env.PORT || 3002;
     app.listen(port, () => {
         console.log(`Auth service listening at http://localhost:${port}`);
-        console.log('Mock users available:');
-        console.log('- anna.virtanen@nursinghome.com (nurse)');
-        console.log('- zachariah.kiehn36@nursinghome.com (admin)');
-        console.log('- Password for all users: nursing123');
+        console.log('\n=== Available Users (Password: nursing123) ===\n');
+        
+        console.log('Doctors:');
+        console.log('  - jukka.makinen@hoitokoti.fi (ID: 1003)');
+        console.log('  - timo.lehtonen@hoitokoti.fi (ID: 1009)');
+        
+        console.log('\nNurses:');
+        console.log('  - anna.virtanen@hoitokoti.fi (ID: 1001)');
+        console.log('  - sari.koskinen@hoitokoti.fi (ID: 1006)');
+        console.log('  - eero.laaksonen@hoitokoti.fi (ID: 1013)');
+        console.log('  - maria.nieminen@hoitokoti.fi (ID: 1004) - Head Nurse');
+        
+        console.log('\nCare Assistants:');
+        console.log('  - liisa.korhonen@hoitokoti.fi (ID: 1002)');
+        console.log('  - mikko.heikkinen@hoitokoti.fi (ID: 1007)');
+        console.log('  - pirjo.makela@hoitokoti.fi (ID: 1014)');
+        
+        console.log('\nOther Staff:');
+        console.log('  - pekka.laine@hoitokoti.fi (ID: 1005) - Physiotherapist');
+        console.log('  - kaisa.jarvinen@hoitokoti.fi (ID: 1008) - Psychologist');
+        console.log('  - hanna.salo@hoitokoti.fi (ID: 1010) - Social Worker');
+        console.log('  - juha.rantanen@hoitokoti.fi (ID: 1011) - Pharmacist');
+        console.log('  - maija.tuominen@hoitokoti.fi (ID: 1012) - Radiographer');
+        
+        console.log('\nAdmin:');
+        console.log('  - admin@hoitokoti.fi (ADMIN001)');
+        
+        console.log('\n===========================================\n');
     });
 }
 
