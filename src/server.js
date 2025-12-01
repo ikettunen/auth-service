@@ -162,6 +162,57 @@ const mockUsers = [
         lastName: 'Tuominen'
     },
     
+    // Additional Nurses for 24/7 coverage
+    {
+        id: 'user_1015',
+        email: 'laura.virtamo@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'nurse',
+        staffId: '1015',
+        firstName: 'Laura',
+        lastName: 'Virtamo'
+    },
+    {
+        id: 'user_1016',
+        email: 'mika.saarinen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'nurse',
+        staffId: '1016',
+        firstName: 'Mika',
+        lastName: 'Saarinen'
+    },
+    {
+        id: 'user_1017',
+        email: 'tiina.aho@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'nurse',
+        staffId: '1017',
+        firstName: 'Tiina',
+        lastName: 'Aho'
+    },
+    
+    // Janitor
+    {
+        id: 'user_1018',
+        email: 'kari.maenpaa@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'janitor',
+        staffId: '1018',
+        firstName: 'Kari',
+        lastName: 'Mäenpää'
+    },
+    
+    // Cook/Cleaner
+    {
+        id: 'user_1019',
+        email: 'tuula.virtanen@hoitokoti.fi',
+        password: '$2b$10$example_hash_here',
+        role: 'cook_cleaner',
+        staffId: '1019',
+        firstName: 'Tuula',
+        lastName: 'Virtanen'
+    },
+    
     // Admin (for testing)
     {
         id: 'user_admin',
@@ -367,12 +418,19 @@ if (process.env.NODE_ENV !== 'test') {
         console.log('  - mikko.heikkinen@hoitokoti.fi (ID: 1007)');
         console.log('  - pirjo.makela@hoitokoti.fi (ID: 1014)');
         
+        console.log('\nAdditional Nurses (24/7 Coverage):');
+        console.log('  - laura.virtamo@hoitokoti.fi (ID: 1015)');
+        console.log('  - mika.saarinen@hoitokoti.fi (ID: 1016)');
+        console.log('  - tiina.aho@hoitokoti.fi (ID: 1017)');
+        
         console.log('\nOther Staff:');
         console.log('  - pekka.laine@hoitokoti.fi (ID: 1005) - Physiotherapist');
         console.log('  - kaisa.jarvinen@hoitokoti.fi (ID: 1008) - Psychologist');
         console.log('  - hanna.salo@hoitokoti.fi (ID: 1010) - Social Worker');
         console.log('  - juha.rantanen@hoitokoti.fi (ID: 1011) - Pharmacist');
         console.log('  - maija.tuominen@hoitokoti.fi (ID: 1012) - Radiographer');
+        console.log('  - kari.maenpaa@hoitokoti.fi (ID: 1018) - Janitor');
+        console.log('  - tuula.virtanen@hoitokoti.fi (ID: 1019) - Cook/Cleaner');
         
         console.log('\nAdmin:');
         console.log('  - admin@hoitokoti.fi (ADMIN001)');
